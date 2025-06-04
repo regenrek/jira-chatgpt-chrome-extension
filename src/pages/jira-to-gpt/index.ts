@@ -14,7 +14,7 @@ function insertButtonIfMissing() {
   const titleBar = document.querySelector<HTMLElement>(
     '[data-test-id="issue.views.issue-base.foundation.summary.heading"]'
   );
-  if (!titleBarXXXX) return;
+  if (!titleBar) return;
 
   const container = titleBar.parentElement;
   if (!container || container.querySelector('#gptBtn')) return;
