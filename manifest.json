@@ -1,19 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "name in manifest.json",
-  "description": "description in manifest.json",
-  "options_ui": {
-    "page": "src/pages/options/index.html"
-  },
-  "action": {
-    "default_popup": "src/pages/popup/index.html",
-    "default_icon": {
-      "32": "icon-32.png"
-    }
-  },
-  "chrome_url_overrides": {
-    "newtab": "src/pages/newtab/index.html"
-  },
+  "name": "Jira to ChatGPT",
+  "description": "Send Jira issues to ChatGPT with one click",
+  "version": "1.0.0",
   "icons": {
     "128": "icon-128.png"
   },
@@ -21,13 +10,19 @@
     "*://*.atlassian.net/*"
   ],
   "permissions": [
-    "activeTab",
-    "tabs",
-    "storage",
-    "scripting"
+    "tabs"
   ],
-
-  "devtools_page": "src/pages/devtools/index.html",
+  "background": {
+    "service_worker": "src/pages/background/index.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.atlassian.net/browse/*"],
+      "js": ["src/pages/jira-to-gpt/index.ts"],
+      "run_at": "document_idle"
+    }
+  ],
   "web_accessible_resources": [
     {
       "resources": [
