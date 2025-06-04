@@ -5,14 +5,30 @@
 const presetPrompt =
   `You are a senior QA engineer. Review the following Jira ticket and propose a concise test plan:`;
 
-// 1. Observe Jira SPA DOM changes and insert button when the issue title appears
-const observer = new MutationObserver(insertButtonIfMissing);
-observer.observe(document.body, { childList: true, subtree: true });
-insertButtonIfMissing(); // try once on load
+// Check if current URL matches configured Jira URL
+async function checkJiraUrl(): Promise<boolean> {
+  const saved = await chrome.storage.sync.get(['jiraUrl']);
+  if (!saved.jiraUrl) return false;
+  
+  const configuredUrl = new URL(saved.jiraUrl);
+  const currentUrl = new URL(window.location.href);
+  
+  return currentUrl.hostname === configuredUrl.hostname;
+}
+
+// Initialize only if on configured Jira instance
+checkJiraUrl().then(isValid => {
+  if (isValid) {
+    // 1. Observe Jira SPA DOM changes and insert button when the issue title appears
+    const observer = new MutationObserver(insertButtonIfMissing);
+    observer.observe(document.body, { childList: true, subtree: true });
+    insertButtonIfMissing(); // try once on load
+  }
+});
 
 function insertButtonIfMissing() {
   const titleBar = document.querySelector<HTMLElement>(
-    '[data-test-id="issue.views.issue-base.foundation.summary.heading"]'
+    '[data-test-id="issue.views.issue-base.foundation.summary.heading-wrong"]'
   );
   if (!titleBar) return;
 
@@ -39,7 +55,7 @@ async function handleClick() {
     window.open(url, '_blank');
   } catch {
     // Fallback if CSP blocks window.open
-    chrome.runtime.sendMessage({ url });
+    chrome.runtime.sendMessage({ link });
   }
 }
 
