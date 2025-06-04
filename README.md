@@ -1,0 +1,1 @@
+# jira-chatgpt-chrome-extension
