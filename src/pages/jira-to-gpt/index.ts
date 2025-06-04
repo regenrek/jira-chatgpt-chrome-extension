@@ -28,7 +28,7 @@ checkJiraUrl().then(isValid => {
 
 function insertButtonIfMissing() {
   const titleBar = document.querySelector<HTMLElement>(
-    '[data-test-id="issue.views.issue-base.foundation.summary.heading"]'
+    '[data-test-id="issue.views.issue-base.foundation.summary.heading-wrong"]'
   );
   if (!titleBar) return;
 
@@ -55,7 +55,7 @@ async function handleClick() {
     window.open(url, '_blank');
   } catch {
     // Fallback if CSP blocks window.open
-    chrome.runtime.sendMessage({ url });
+    chrome.runtime.sendMessage({ link });
   }
 }
 
@@ -69,7 +69,7 @@ async function collectIssueData() {
     .map((el) => el.innerText.trim())
     .join('\n---\n');
 
-  return { summaryProblemHere, desc, comments };
+  return { summary, desc, comments };
 
   function text(sel: string) {
     const el = document.querySelector<HTMLElement>(sel);
