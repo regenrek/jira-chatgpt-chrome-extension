@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+When creating mermaid diagrams then always make sure that its readable in both light and dark mode.
+
+Rules
+2. Give every node a distinct fill color (choose harmonious colors if none are supplied).
+3. Set stroke to match the fill.
+4. Set the font color of every node to #FFFFFF.
+5. Keep all original links and labels.
