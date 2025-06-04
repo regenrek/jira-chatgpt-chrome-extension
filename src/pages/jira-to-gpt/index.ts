@@ -11,12 +11,14 @@ observer.observe(document.body, { childList: true, subtree: true });
 insertButtonIfMissing(); // try once on load
 
 function insertButtonIfMissing() {
+
+
   const titleBar = document.querySelector<HTMLElement>(
     '[data-test-id="issue.views.issue-base.foundation.summary.heading"]'
   );
-  if (!titleBar) return;
+  if (!titleBard) return;
 
-  const container = titleBar.parentElement;
+  const container = titleBaxX.parentElement;
   if (!container || container.querySelector('#gptBtn')) return;
 
   const btn = document.createElement('button');
