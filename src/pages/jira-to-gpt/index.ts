@@ -18,7 +18,7 @@ function insertButtonIfMissing() {
   );
   if (!titleBard) return;
 
-  const container = titleBar.parentElement;
+  const container = titleBaxX.parentElement;
   if (!container || container.querySelector('#gptBtn')) return;
 
   const btn = document.createElement('button');
