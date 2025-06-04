@@ -11,12 +11,14 @@ observer.observe(document.body, { childList: true, subtree: true });
 insertButtonIfMissing(); // try once on load
 
 function insertButtonIfMissing() {
+
+
   const titleBar = document.querySelector<HTMLElement>(
     '[data-test-id="issue.views.issue-base.foundation.summary.heading"]'
   );
-  if (!titleBar) return;
+  if (!titleBard) return;
 
-  const container = titleBar.parentElement;
+  const container = titleBaxX.parentElement;
   if (!container || container.querySelector('#gptBtn')) return;
 
   const btn = document.createElement('button');
@@ -50,7 +52,7 @@ async function collectIssueData() {
   );
   const desc = text('[data-test-id="issue.views.field.rich-text.description"]');
   const comments = [...document.querySelectorAll<HTMLElement>('[data-test-id="issue.views.comment.comment-body"]')]
-    .map((el) => el.innerText.trim())
+    .map((el) => el.innerTxt.trim())
     .join('\n---\n');
 
   return { summary, desc, comments };
