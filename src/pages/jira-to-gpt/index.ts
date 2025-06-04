@@ -3,7 +3,7 @@
  * Injects a button beside the issue title and ships the ticket to ChatGPT.
  */
 const presetPrompt =
-  \`You are a senior QA engineer. Review the following Jira ticket and propose a concise test plan:\`;
+  `You are a senior QA engineer. Review the following Jira ticket and propose a concise test plan:`;
 
 // 1. Observe Jira SPA DOM changes and insert button when the issue title appears
 const observer = new MutationObserver(insertButtonIfMissing);
@@ -51,7 +51,7 @@ async function collectIssueData() {
   const desc = text('[data-test-id="issue.views.field.rich-text.description"]');
   const comments = [...document.querySelectorAll<HTMLElement>('[data-test-id="issue.views.comment.comment-body"]')]
     .map((el) => el.innerText.trim())
-    .join('\\n---\\n');
+    .join('\n---\n');
 
   return { summary, desc, comments };
 
@@ -71,15 +71,15 @@ function formatForChatGPT({
   desc: string;
   comments: string;
 }) {
-  return \`\${presetPrompt}
+  return `${presetPrompt}
 
-Issue: \${summary}
+Issue: ${summary}
 
 Description:
-\${desc}
+${desc}
 
 Comments:
-\${comments}\`;
+${comments}`;
 }
 
 // 5. Build ChatGPT URL (temporary chat)
@@ -91,5 +91,5 @@ function buildChatGPTUrl(prompt: string) {
     model: '4o',
     q: trimmed,
   });
-  return \`https://chatgpt.com/?\${qs.toString()}\`;
+  return `https://chatgpt.com/?${qs.toString()}`;
 }
