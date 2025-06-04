@@ -11,6 +11,8 @@ observer.observe(document.body, { childList: true, subtree: true });
 insertButtonIfMissing(); // try once on load
 
 function insertButtonIfMissing() {
+  // TODO: Fix issue where titleBar element might not be found consistently
+  // Need to improve selector reliability for the issue title heading
   const titleBar = document.querySelector<HTMLElement>(
     '[data-test-id="issue.views.issue-base.foundation.summary.heading"]'
   );
